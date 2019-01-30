@@ -1,0 +1,49 @@
+module comb_ckt_generator_tb;
+reg reset;
+wire v_sync;
+reg clock;
+wire[9:0] col;
+wire[8:0]  row;
+wire[3:0]  red;
+wire[3:0]  green;
+wire[3:0]  blue;
+reg [9:0]  SW;
+
+
+vga_controller paul1(
+.v_sync(v_sync),
+.column(col),
+.row(row),
+.pixel_clk(clock)
+);
+comb_ckt_generator paul(
+.vsync(v_sync),
+.clock(clock),
+.col(col),
+.row(row),
+.red(red),
+.green(green),
+.blue(blue),
+.SW(SW)
+);
+
+always begin
+
+
+
+clock=1'b0;
+#10;
+clock=1'b1;
+#10;
+end
+
+initial begin
+SW=10'b00000_00000;
+repeat(10000)begin
+@(posedge clock);
+
+end
+
+
+end
+endmodule
